@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .bg-dots {
+    background-image: radial-gradient(circle, black 2px, #eaeaea 2px);
+    background-size: 70px 70px; /* Adjust size as needed */
+  }
+  .bg-blackdots {
+    background-image: radial-gradient(circle, #eaeaea 2px, black 2px);
+    background-size: 70px 70px; /* Adjust size as needed */
+  }
+}
+
+.render tr:nth-child(even) {
+  background-color: #e6fbb1;
+  color: black;
+}
+
+input {
+  border-radius: 3px;
+  outline: none;
+}

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Validation</title>
+    <link rel="stylesheet" href="./output.css" />
+
+    <!-- <script type="module" src="./countries.js" defer></script> -->
+  </head>
+  <body>
+    <div
+      id="parent"
+      class="flex flex-col h-screen gap-3 px-10 sm:flex-row py-7"
+    >
+      <div
+        id="form-parent"
+        style="background-image: url('./assets/hero-circle-g.png')"
+        class="py-2 text-sm bg-cover border-2 bg-lime-100 w-fit sm:text-xl rounded-xl font-Josefin"
+      >
+        <form id="user-form" class="container p-2" onsubmit="addUser(event)">
+          <h2 class="text-2xl font-bold sm:text-5xl">USER FORM</h2>
+          <table>
+            <tr>
+              <td><label for="name">Name:*</label></td>
+
+              <td><input type="text" id="name" name="name" required /></td>
+            </tr>
+
+            <tr>
+              <td><label for="email">Email:*</label></td>
+              <td><input type="email" id="email" name="email" required /></td>
+            </tr>
+
+            <tr>
+              <td><label>Gender:</label></td>
+              <td>
+                <input type="radio" id="male" name="gender" value="male" />Male
+                <input
+                  type="radio"
+                  id="female"
+                  name="gender"
+                  value="female"
+                />Female
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="mobile">Mobile Number:*</label></td>
+              <td>
+                <input
+                  type="number"
+                  maxlength="10"
+                  id="mobile"
+                  name="mobile"
+                  required
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><label for="country">Country:*</label></td>
+              <td>
+                <select name="country" class="country-dropdown" id="country">
+                  <option value="" disabled selected>
+                    --select the country--
+                  </option>
+                  <option value="india">India</option>
+                  <option value="usa">USA</option>
+                  <option value="australia">Australia</option>
+                  <option value="uk">UK</option>
+                  <option value="rus">Russia</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="state">State:*</label></td>
+              <td>
+                <select name="state" id="state" required>
+                  <option value="" disabled selected>
+                    --select the state--
+                  </option>
+                  <!-- the option will be dynamically create based on country -->
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td><label for="city">City:*</label></td>
+              <td>
+                <select name="" id="city" required>
+                  <option value="" disabled selected>
+                    --select the city--
+                  </option>
+                  <!-- the option will be dynamically create based on state -->
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="pincode">Pincode:</label></td>
+              <td>
+                <input
+                  type="number"
+                  maxlength="6"
+                  id="pincode"
+                  name="pincode"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><label for="bio">Bio Description:</label></td>
+              <td><textarea id="bio" name="bio"></textarea></td>
+            </tr>
+            <tr>
+              <td class="cursor-pointer">
+                <button
+                  type="submit"
+                  class="px-4 py-2 text-white bg-black rounded-lg"
+                >
+                  Submit
+                </button>
+              </td>
+            </tr>
+          </table>
+          <p class="py-3 text-sm">field with * are required!</p>
+        </form>
+      </div>
+
+      <div
+        id="table-parent"
+        class="relative flex-grow px-5 overflow-scroll text-white bg-black bg-cover rounded-xl"
+      >
+        <div id="listBody">
+          <h1 class="p-2 text-2xl font-bold sm:text-5xl">USER LIST</h1>
+          <div id="filters" class="flex items-center justify-center gap-5 py-5">
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="search name"
+              oninput="searchUsers()"
+              class="w-full p-2 rounded-3xl bg-neutral-700"
+            />
+            <select
+              name="country"
+              class="p-2 country-dropdown-table rounded-3xl bg-neutral-700"
+              id="country-table"
+            >
+              <option value="" disabled selected>--select the country--</option>
+              <option value="india">India</option>
+              <option value="usa">USA</option>
+              <option value="australia">Australia</option>
+              <option value="uk">UK</option>
+              <option value="rus">Russia</option>
+            </select>
+            <select
+              name="state"
+              id="state-table"
+              class="p-2 rounded-3xl state bg-neutral-700"
+              required
+            >
+              <option value="" disabled selected>--select the state--</option>
+              <!-- the option will be dynamically create based on country -->
+            </select>
+            <select
+              name=""
+              id="city-table"
+              class="p-2 rounded-3xl bg-neutral-700"
+              required
+            >
+              <option value="" disabled selected>--select the city--</option>
+              <!-- the option will be dynamically create based on state -->
+            </select>
+          </div>
+          <table class="w-full px-5 py-2">
+            <th>Sr.No</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th>Number</th>
+            <th>Country</th>
+            <th>State</th>
+            <th>City</th>
+            <th>modify</th>
+            <tbody id="tbody" class="px-5 text-base render"></tbody>
+          </table>
+        </div>
+        <div
+          id="pagination"
+          class="absolute bottom-0 flex items-center justify-center gap-5 py-5 text-2xl"
+        >
+          <button id="prev" class="px-2 rounded-lg bg-lime-500">&lt;</button>
+          <div id="pages"></div>
+          <button id="next" class="px-2 rounded-lg bg-lime-500">&gt;</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="./curd.js" defer></script>
+    <script type="module" src="./pagination.js" defer></script>
+    <script type="module" src="./drop.js" defer></script>
+    <script type="module" src="./dropdown.js" defer></script>
+  </body>
+</html>
